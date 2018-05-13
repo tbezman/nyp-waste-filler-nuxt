@@ -11,7 +11,7 @@ module.exports = {
 
     mode: 'spa',
 
-    plugins: ['~/plugins/vuex-persist'],
+    plugins: ['~/plugins/vuex-persist', '~/plugins/vue2-filters'],
 
     build: {
         babel: {
