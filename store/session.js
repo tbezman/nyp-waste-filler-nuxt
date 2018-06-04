@@ -66,27 +66,33 @@ export const actions = {
         // Continue on with waste processing
         let vial = data.vial;
         let sizes = vial.vial_size.split(',').map(it => parseInt(it));
+        let billable_units = parseFloat(vial.billable_units);
+        let used = (parseFloat(data.waste.units) * billable_units) + parseFloat(data.amount);
         let allSizes = [];
+
 
         let best;
 
         sizes.forEach(size => {
-            let worstCase = Math.ceil(data.amount / size);
+            let worstCase = Math.ceil(used / size);
 
             for (let i = 0; i < worstCase; i++) {
                 allSizes.push(size);
             }
         });
 
+        console.log(used, allSizes);
+
         let combinations = Combinatorics.power(allSizes);
         let current;
         while(current = combinations.next()) {
             let total = sum(current);
+            let waste = total - used;
 
-            if(total < data.amount) continue;
+            if(total < used) continue;
 
             if(!best) {
-                best = {total, config: current};
+                best = {total, waste, config: current};
                 continue;
             }
 

@@ -17,12 +17,12 @@ const newWin = () => {
         width: 800,
         height: 600
     })
-    return win.loadURL("http://localhost:3333")
+    return win.loadURL("http://localhost:3000")
 };
 
 app.on('ready', newWin);
-app.on('window-all-closed', () => app.quit())
-app.on('activate', () => win === null && newWin())
+app.on('window-all-closed', () => app.quit());
+app.on('activate', () => win === null && newWin());
 
 
 electron.ipcMain.on('headers', async (event, path) => {

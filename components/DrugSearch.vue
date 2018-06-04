@@ -24,6 +24,7 @@
                 <thead>
                 <th>Drug</th>
                 <th>Date/Time</th>
+                    <th>MRN</th>
                 <th>Units</th>
                 <th>Actions</th>
                 </thead>
@@ -31,6 +32,7 @@
                 <tr class="selected" v-if="selected">
                     <td>{{ selected.waste.charge_code_descriptor }}</td>
                     <td>{{ selected.waste.when }}</td>
+                    <td>{{ selected.waste.mrn }}</td>
                     <td>{{ selected.waste.units }}</td>
                     <td>NA</td>
                 </tr>
@@ -38,6 +40,7 @@
                     v-for="result in results">
                     <td>{{ result.charge_code_descriptor }}</td>
                     <td>{{ result.when }}</td>
+                    <td>{{ result.mrn }}</td>
                     <td>{{ result.units }}</td>
                     <td class="row flex center-xs around-xs">
                         <button @click="select(result, false)" type="button" name="button">

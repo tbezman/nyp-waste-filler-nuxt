@@ -38,16 +38,17 @@
 </template>
 
 <script>
-    import Component, {Action, State, Mutation} from 'nuxt-class-component';
+    import Component, { State } from 'nuxt-class-component';
     import Vue from 'vue';
 
-    import {ipcRenderer} from 'electron';
+    import { ipcRenderer } from 'electron';
 
     import FileDisplay from "../components/FileDisplay";
     import Spinner from "../components/Spinner";
+    import { rawTitlesForCampus } from '../util/constants';
 
     @Component({
-        components: {Spinner, FileDisplay}
+        components: { Spinner, FileDisplay }
     })
     export default class extends Vue {
         @State(state => state.session.worksheets) worksheets;
@@ -56,23 +57,6 @@
         spinning = false;
 
         currentIndex = 0;
-
-        rawDatabaseTitles = {
-            'patient_number': 'Patient Number',
-            'mrn': 'MRN',
-            'account_number': 'Account Number',
-            'charge_code': 'Charge Code',
-            'charge_code_descriptor': 'Charge Code Descriptor',
-            'units': 'Units',
-            'rate': 'Rate',
-            'date': 'Date',
-            'time': 'Time'
-        };
-
-        ignoredPerCampus = {
-            'east': [],
-            'west': ['patient_number']
-        };
 
         mounted() {
             ipcRenderer.on('imported', (event, logs) => {
@@ -85,14 +69,7 @@
         }
 
         get databaseTitles() {
-            const filtered = {};
-
-            for (const key in this.rawDatabaseTitles) {
-                if (this.ignoredPerCampus[this.campus].indexOf(key) === -1)
-                    filtered[key] = this.rawDatabaseTitles[key];
-            }
-
-            return filtered;
+            return rawTitlesForCampus(this.campus);
         }
 
         get worksheet() {

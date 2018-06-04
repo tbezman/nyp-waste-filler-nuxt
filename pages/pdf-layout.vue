@@ -28,6 +28,7 @@
     import { Prop } from 'vue-property-decorator';
 
     import PDFJS from 'pdfjs-dist';
+    import { rawTitles, rawTitlesForCampus, specialTitles } from '../util/constants';
 
     PDFJS.GlobalWorkerOptions.workerSrc = '/pdf-worker.js';
 
@@ -38,51 +39,31 @@
         @Mutation('session/addLayout') addLayout;
         @Mutation('session/clearLayout') clearLayout;
 
-        rawDatabaseTitles = {
-            'patient_number': 'Patient Number',
-            'mrn': 'MRN',
-            'account_number': 'Account Number',
-            'charge_code': 'Charge Code',
-            'charge_code_descriptor': 'Charge Code Descriptor',
-            'units': 'Units',
-            'rate': 'Rate',
-            'date': 'Date',
-            'time': 'Time'
-        };
-
         ignoredPerCampus = {
             'east': [],
             'west': ['patient_number']
         };
 
-        selected = Object.keys(this.rawDatabaseTitles)[0];
+        selected = Object.keys(rawTitles)[0];
 
         get databaseTitles() {
-            const filtered = {};
-
-            for (const key in this.rawDatabaseTitles) {
-                if (this.ignoredPerCampus[this.campus].indexOf(key) === -1)
-                    filtered[key] = this.rawDatabaseTitles[key];
-            }
-
+            console.log(rawTitlesForCampus((this.campus)));
             return {
-                ...filtered,
-                'charge': "Charge",
-                'vial_config': 'Vial Config',
-                'entered_waste': 'Entered Waste'
+                ...rawTitlesForCampus(this.campus),
+                ...specialTitles
             };
         }
 
         reset() {
             this.clearLayout();
-            this.reRender();
+            this.clearRender();
         }
 
         mounted() {
-           this.reRender()
+            this.clearRender();
         }
 
-        async reRender() {
+        async clearRender() {
             let all = await this.logs.allDocs();
 
             this.pdfs = await Promise.all(all.rows.map(async it => {

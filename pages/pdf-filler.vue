@@ -4,8 +4,11 @@
             <PdfRenderer ref="pdf" :pdfs="pdfs" />
 
             <DrugSearch @selected="selected" class="flex col-xs-7">
-                <div class="col-xs-4" v-if="waste && waste.vial">
+                <div v-if="waste && waste.vial">
                     <label>({{ waste.vial.drug }}) Wasted Amount({{ waste.vial.unit }})</label>
+                    <select :value="waste.vial.drug" @change="e => waste.vial = vials.find(it => it.drug === e.target.value)">
+                        <option v-for="vial in vials" :value="vial.drug">{{ vial.drug }}</option>
+                    </select>
                     <input type="number" v-model="waste.amount">
                 </div>
                 <div class="col-xs-1" v-if="waste">
@@ -97,7 +100,7 @@
 
             if(sorted[0].distance > 3) return;
 
-            this.waste = { vial, amount: 0 };
+            this.waste = { vial, amount: 0, waste, only_patient: only };
         }
 
         next() {
