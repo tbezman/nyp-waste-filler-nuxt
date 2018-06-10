@@ -1,6 +1,6 @@
 <template>
-    <div :style="{visibility: display ? 'visible': 'hidden'}">
-        <canvas class="vert-center" ref="canvas" width="475" height="600"></canvas>
+    <div>
+        <canvas  :style="{display: display ? '': 'none'}" class="vert-center" ref="canvas"></canvas>
     </div>
 </template>
 
@@ -79,17 +79,19 @@
         }
 
         async renderPage(page) {
-            let element = this.$refs.canvas;
-            let canvasContext = element.getContext('2d');
-            let viewport = page.getViewport(1);
-            let scaledViewport = page.getViewport(element.width / viewport.width);
-
-            canvasContext.width = viewport.width;
-            canvasContext.height = viewport.height;
-
             this.currentPDFPage = page;
 
-            await page.render({ canvasContext, viewport: scaledViewport });
+            let element = this.$refs.canvas;
+            let container = element.parentNode;
+            let canvasContext = element.getContext('2d');
+            let viewport = page.getViewport(1);
+            let scale = container.clientWidth / viewport.width;
+            viewport = page.getViewport(scale);
+
+            element.height = viewport.height;
+            element.width = viewport.width;
+
+            await page.render({ canvasContext, viewport: viewport });
         }
 
         async getFullPDF(text = [], excluded, included, renderer = null) {
@@ -122,9 +124,14 @@
 
                     if (layouts) {
                         for(const layout of layouts) {
-                            const context = this.$refs.canvas.getContext('2d');
-                            const viewport = this.currentPDFPage.getViewport(1);
+                            let element = this.$refs.canvas;
+                            let container = element.parentNode;
+                            let context = element.getContext('2d');
+                            let viewport = this.currentPDFPage.getViewport(1);
+                            let scale = container.clientWidth / viewport.width;
+                            viewport = this.currentPDFPage.getViewport(scale);
 
+                            context.font = "40px Roboto";
                             context.fillText(layout.text, layout.x * viewport.width, layout.y * viewport.height);
                         }
                     }

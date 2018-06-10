@@ -1,10 +1,8 @@
-import fs from 'fs';
-import Worksheet from "./Worksheet";
-
+const Worksheet = require('./Worksheet');
 const excel = require('exceljs');
 const moment = require('moment');
 
-export default class Excel {
+class Excel {
     static async fromPath(path) {
         let excel = new Excel(path);
 
@@ -32,3 +30,5 @@ export default class Excel {
         this.worksheets = await Promise.all(worksheets.map(Worksheet.fromWorksheet));
     }
 }
+
+module.exports = Excel;

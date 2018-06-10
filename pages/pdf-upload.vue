@@ -50,7 +50,7 @@
                     type: 'pdf_file',
                 })));
 
-                this.$router.push({ path: '/pdf-filler' })
+                this.$router.push({ path: '/pdf-layout' })
             });
         }
 

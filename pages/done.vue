@@ -27,6 +27,8 @@
     import { logToLayoutMap, wasted_units } from '../util/pdf-layout';
     import { BatchService } from '../util/batch';
 
+    PDFJS.GlobalWorkerOptions.workerSrc = '/pdf-worker.js';
+
     @Component({
         components: { PdfRenderer }
     })

@@ -2,19 +2,9 @@ import Vue from 'vue';
 
 import createPersistedState from 'vuex-persistedstate'
 import PouchDB from 'pouchdb-browser'
-import PouchDBFind from 'pouchdb-find';
 import moment from 'moment';
 
-PouchDB.plugin(PouchDBFind);
-
-let db = new PouchDB('waste', { adapter: 'websql' });
-let logs = new PouchDB('logs', { adapter: 'websql' });
-
 Vue.mixin({
-    data() {
-        return { db, logs };
-    },
-
     methods: {
         async resetLogs() {
             await PouchDB('logs').destroy();

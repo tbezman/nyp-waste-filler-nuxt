@@ -1,4 +1,4 @@
-export default class Worksheet {
+class Worksheet {
     static async fromWorksheet(worksheet) {
         worksheet = new Worksheet(worksheet);
 
@@ -19,3 +19,5 @@ export default class Worksheet {
         this.headers = row.values;
     }
 }
+
+module.exports = Worksheet;

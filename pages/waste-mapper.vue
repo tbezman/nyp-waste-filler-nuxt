@@ -22,7 +22,7 @@
             <div class="row pin bottom top-room">
                 <div class="padded" v-for="(title, column) in databaseTitles">
                     <label>{{ title }}</label>
-                    <select v-model="worksheet.mappings[column]">
+                    <select :value="worksheet.mappings[column]" @change="e => changeMapping({worksheet, column, value: e.target.value})">
                         <option v-for="sheetColumn in worksheet.headers">{{ sheetColumn }}</option>
                     </select>
                 </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import Component, { State } from 'nuxt-class-component';
+    import Component, { State, Action } from 'nuxt-class-component';
     import Vue from 'vue';
 
     import { ipcRenderer } from 'electron';
@@ -53,6 +53,8 @@
     export default class extends Vue {
         @State(state => state.session.worksheets) worksheets;
         @State(state => state.session.campus) campus;
+
+        @Action('session/changeMapping') changeMapping;
 
         spinning = false;
 

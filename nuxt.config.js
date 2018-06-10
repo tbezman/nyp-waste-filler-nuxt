@@ -1,17 +1,16 @@
 module.exports = {
-    /*
-    ** Electron Settings
-    */
-    electron: {
-        width: 1024,
-        height: 768
-    },
 
     css: ['~/assets/css/animate.css', '~/assets/css/main.scss', '~/assets/css/flexboxgrid.css', '~/assets/css/milligram.css', 'font-awesome/css/font-awesome.css'],
 
-    mode: 'spa',
+    plugins: [
+        { src: '~/plugins/vuex-persist', ssr: false },
+        { src: '~/plugins/vue2-filters', ssr: false },
+        { src: '~/plugins/vue-pouchdb', ssr: false }
+    ],
 
-    plugins: ['~/plugins/vuex-persist', '~/plugins/vue2-filters'],
+    dev: process.env.NODE_ENV === 'DEV',
+
+    mode: 'spa',
 
     build: {
         babel: {
@@ -19,7 +18,15 @@ module.exports = {
             presets: ['stage-0']
         },
 
-        extend(config, {isClient}) {
+        extend(config, { isDev, isClient }) {
+            if (isDev && isClient) {
+                // Run ESLint on save
+                config.module.rules.push({
+                    enforce: 'pre',
+                    test: /\.(js|vue)$/,
+                    exclude: /(node_modules)/
+                })
+            }
             // Extend only webpack config for client-bundle
             if (isClient) {
                 config.target = 'electron-renderer'

@@ -23,6 +23,11 @@ export const mutations = {
     worksheets(state, worksheets) {
         state.worksheets.push(...worksheets);
     },
+    changeWorksheetMapping(state, {worksheet, column, value}) {
+        state.worksheets = [...state.worksheets];
+
+        worksheet.mappings[column] = value;
+    },
     clearWorksheets(state) {
         state.worksheets = [];
     },
@@ -46,6 +51,12 @@ export const actions = {
         fresh.push(...files);
 
         commit('files', {name, files: fresh});
+    },
+
+    changeMapping({commit, state}, {worksheet, column, value}) {
+        commit('changeWorksheetMapping', {worksheet, column, value});
+
+        console.log(worksheet.mappings);
     },
 
     removeFile({commit, state}, {name, file}) {

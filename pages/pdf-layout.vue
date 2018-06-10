@@ -85,18 +85,20 @@
 
         async renderPage(page) {
             let element = this.$refs.canvas;
+            let container = element.parentNode;
             let canvasContext = element.getContext('2d');
             let viewport = page.getViewport(1);
-            let scaledViewport = page.getViewport(element.width / viewport.width);
+            let scale = container.clientWidth / viewport.width;
+            viewport = page.getViewport(scale);
 
-            canvasContext.width = viewport.width;
-            canvasContext.height = viewport.height;
+            element.height = viewport.height;
+            element.width = viewport.width;
 
-            await page.render({ canvasContext, viewport: scaledViewport });
+            await page.render({ canvasContext, viewport: viewport });
 
             return {
                 canvasContext,
-                viewport: scaledViewport
+                viewport
             };
         }
 
@@ -104,7 +106,7 @@
             let context = renderContext.canvasContext;
             let viewport = renderContext.viewport;
 
-            context.font = "20px Roboto";
+            context.font = "40px Roboto";
 
             this.$refs.canvas.onclick = event => {
                 let x = event.offsetX;

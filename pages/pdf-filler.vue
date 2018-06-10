@@ -1,7 +1,7 @@
 <template>
     <div id="root" class="flex">
         <div class="row">
-            <PdfRenderer ref="pdf" :pdfs="pdfs" />
+            <PdfRenderer class="col-xs-5" ref="pdf" :pdfs="pdfs" />
 
             <DrugSearch @selected="selected" class="flex col-xs-7">
                 <div v-if="waste && waste.vial">

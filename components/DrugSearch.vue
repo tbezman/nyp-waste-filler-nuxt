@@ -91,7 +91,7 @@
             });
 
             this.results = result.docs.map(it => {
-                return { ...it, when: moment(it.when).format('MM/DD/YYYY') }
+                return { ...it, when: moment(it.when).format('MM/DD/YYYY H:mm A') }
             }).filter(it => {
                 if(!this.date) return true;
                 let date = moment(this.date);
