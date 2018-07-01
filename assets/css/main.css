@@ -46,10 +46,10 @@ spinner > .background {
 
 .selectable {
   cursor: pointer;
+}
 
-  &:hover {
-    background-color: #EEE;
-  }
+.selectable:hover {
+  background-color: #EEE;
 }
 
 .invisible {
@@ -122,25 +122,23 @@ div.row {
   padding: 10px;
 }
 
-work-flow {
-  .header {
-    height: 40px;
-  }
+work-flow .header {
+  height: 40px;
+}
 
-  .content {
-    height: calc(100% - 40px)
-  }
+work-flow .content {
+  height: calc(100% - 40px);
 }
 
 .flex-column {
   display: flex;
   flex-flow: column;
   height: 100%;
+}
 
-  .flex-rest {
-    flex: 1 1 auto;
-    position: relative;
-  }
+.flex-column .flex-rest {
+  flex: 1 1 auto;
+  position: relative;
 }
 
 .pin.bottom {
@@ -172,7 +170,7 @@ work-flow {
 }
 
 .progress-outer {
-  background-color: #EEE
+  background-color: #EEE;
 }
 
 .progress-inner {

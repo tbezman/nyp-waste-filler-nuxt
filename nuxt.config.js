@@ -1,6 +1,6 @@
 module.exports = {
 
-    css: ['~/assets/css/animate.css', '~/assets/css/main.scss', '~/assets/css/flexboxgrid.css', '~/assets/css/milligram.css', 'font-awesome/css/font-awesome.css'],
+    css: ['~/assets/css/animate.css', '~/assets/css/flexboxgrid.css', '~/assets/css/main.css', '~/assets/css/milligram.css'],
 
     plugins: [
         { src: '~/plugins/vuex-persist', ssr: false },
@@ -8,13 +8,15 @@ module.exports = {
         { src: '~/plugins/vue-pouchdb', ssr: false }
     ],
 
-    dev: process.env.NODE_ENV === 'DEV',
+    loading: false,
+
+    dev: false,
 
     mode: 'spa',
 
     build: {
         babel: {
-            plugins: ['transform-decorators-legacy', 'transform-class-properties', 'transform-flow-strip-types'],
+            plugins: ['transform-decorators-legacy', 'transform-class-properties'],
             presets: ['stage-0']
         },
 

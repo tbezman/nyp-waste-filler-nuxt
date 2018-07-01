@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
     #container {
         width: 100vw;
         height: 100vh;
@@ -29,7 +29,7 @@
 
     import {Prop} from 'vue-property-decorator';
 
-    import DotLoader from 'vue-spinner/src/DotLoader.vue';
+    import {DotLoader} from 'vue-spinner/dist/vue-spinner.min.js';
 
     @Component({
         components: {DotLoader}

@@ -21,6 +21,10 @@ if (config.dev) {
 		process.exit(1)
 	})
 }
+
+nuxt.hook('error', e => {
+    console.log(arguments);
+});
 // Listen the server
 server.listen(3000);
 const _NUXT_URL_ = `http://localhost:${server.address().port}`
@@ -53,7 +57,9 @@ const newWin = () => {
 			}).on('error', pollServer)
 		}
 		pollServer()
-	} else { return win.loadURL(_NUXT_URL_) }
+    } else { return win.loadURL(_NUXT_URL_) }
+    
+    win.webContents.openDevTools()
 }
 app.on('ready', newWin)
 app.on('window-all-closed', () => app.quit())
