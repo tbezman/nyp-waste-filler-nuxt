@@ -1,6 +1,6 @@
 <template>
     <div class="row flex">
-        <div class="col-xs-7">
+        <div class="col-xs-3">
             <canvas ref="canvas" width="600" height="700"></canvas>
         </div>
         <div class="flex flex-column col-xs-5">

@@ -76,9 +76,9 @@ export const actions = {
 
         // Continue on with waste processing
         let vial = data.vial;
-        let sizes = vial.vial_size.split(',').map(it => parseInt(it));
+        let sizes = vial.vial_size.toString().split(',').map(it => parseInt(it)).sort();
         let billable_units = parseFloat(vial.billable_units);
-        let used = (parseFloat(data.waste.units) * billable_units) + parseFloat(data.amount);
+        let used = (parseFloat(data.waste.units) * billable_units);
         let allSizes = [];
 
 
@@ -98,7 +98,7 @@ export const actions = {
         let current;
         while(current = combinations.next()) {
             let total = sum(current);
-            let waste = total - used;
+            let waste = Math.min(parseFloat(data.amount), total - used, sizes[0]);
 
             if(total < used) continue;
 

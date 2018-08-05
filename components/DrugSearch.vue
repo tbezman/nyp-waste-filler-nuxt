@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row bottom-xs space between" @keyup.enter="search(query)">
+        <form @submit.prevent="search(query)" class="row bottom-xs space between">
             <div class="col-xs-4">
                 <label>Drug</label>
                 <input type="text" v-model="query">
@@ -10,10 +10,9 @@
                 <MaskedInput type="text" mask="11/11/1111" v-model="date" />
             </div>
             <div>
-                <button id='searchButton' class="" type="button" name="button" ng-click="filler.search()">Search
-                </button>
+                <button @click="search(query)">Search</button>
             </div>
-        </div>
+        </form>
 
         <div class="row center-xs bottom-xs">
             <slot name="default" />
@@ -36,8 +35,7 @@
                     <td>{{ selected.waste.units }}</td>
                     <td>NA</td>
                 </tr>
-                <tr class="selectable" ng-class="{strange: filler.isResultStrange(result)}"
-                    v-for="result in results">
+                <tr class="selectable" ng-class="{strange: filler.isResultStrange(result)}" v-for="result in results">
                     <td>{{ result.charge_code_descriptor }}</td>
                     <td>{{ result.when }}</td>
                     <td>{{ result.mrn }}</td>
@@ -82,28 +80,37 @@
         }
 
         async search(drug) {
-            let result = await this.db.find({
-                selector: {
-                    'charge_code_descriptor': {
-                        $regex: new RegExp('.*' + drug + '.*', 'i')
+            this.$emit('onStatus', true);
+
+            try {
+                let result = await this.db.find({
+                    selector: {
+                        'charge_code_descriptor': {
+                            $regex: new RegExp('.*' + drug + '.*', 'i')
+                        }
                     }
-                }
-            });
+                });
 
-            this.results = result.docs.map(it => {
-                return { ...it, when: moment(it.when).format('MM/DD/YYYY H:mm A') }
-            }).filter(it => {
-                if(!this.date) return true;
-                let date = moment(this.date);
-                let when = moment(it.when);
+                this.results = result.docs.map(it => {
+                    return { ...it, when: moment(it.when).format('MM/DD/YYYY H:mm A') }
+                }).filter(it => {
+                    if(!this.date) return true;
+                    let date = moment(this.date);
+                    let when = moment(it.when);
 
-                if(!date) return true;
+                    if(!date) return true;
 
-                return when.get('year') === date.get('year') &&
-                        when.get('date') === date.get('date') &&
-                        when.get('month') === date.get('month')
+                    return when.get('year') === date.get('year') &&
+                            when.get('date') === date.get('date') &&
+                            when.get('month') === date.get('month')
 
-            });
+                });
+            } catch (e) {
+                console.error(e);
+            } finally {
+                this.$emit('onStatus', false);
+            }
+
         }
 
     }

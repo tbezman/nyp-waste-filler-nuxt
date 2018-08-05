@@ -12,6 +12,12 @@
                         @click="downloadIncomplete"
                 >Download Incomplete
                 </button>
+                <button
+                        class="button"
+                        @click="backup"
+                >Backup Work
+                </button>
+                
             </div>
         </div>
         <PdfRenderer :display="false" ref="renderer" :pdfs="pdfs" />
@@ -26,6 +32,8 @@
     import PdfRenderer from '../components/PdfRenderer';
     import { logToLayoutMap, wasted_units } from '../util/pdf-layout';
     import { BatchService } from '../util/batch';
+
+    import FileSaver from 'file-saver';
 
     PDFJS.GlobalWorkerOptions.workerSrc = '/pdf-worker.js';
 
@@ -78,10 +86,13 @@
         async downloadExcelFile() {
             let fields = {
                 'when': 'Date',
+                'patient_number': 'Patient Number / MRN',
                 'account_number': 'Account Number',
                 'charge_code': 'Charge Code',
                 'wasted_units': 'Wasted Units',
-                'rate': 'Rate'
+                'rate': 'Rate',
+                'billed_waste': 'Billed Waste',
+                'entered_waste': 'Entered Waste'
             };
             const rows = [Object.values(fields)];
             let csvContent = "data:text/csv;charset=utf-8,";
@@ -92,6 +103,10 @@
                 return Object.keys(fields).map(field => {
                     if (field === 'wasted_units') {
                         return wasted_units(log);
+                    } else if(field === 'billed_waste') {
+                        return log.config.waste * log.vial.billable_units;
+                    } else if (field === 'entered_waste') {
+                        return log.amount;
                     } else {
                         return log.waste[field]
                     }
@@ -122,7 +137,8 @@
         }
 
         backup() {
-
+            const blob = new Blob([window.localStorage.getItem('vuex')], {type: "application/json;charset=utf-8"});
+            FileSaver.saveAs(blob, "Backup.json");
         }
     }
 </script>

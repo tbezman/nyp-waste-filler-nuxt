@@ -3,7 +3,7 @@
         <div class="row">
             <PdfRenderer class="col-xs-5" ref="pdf" :pdfs="pdfs" />
 
-            <DrugSearch @selected="selected" class="flex col-xs-7">
+            <DrugSearch @onStatus="status => searching = status" @selected="selected" class="col-xs-7">
                 <div v-if="waste && waste.vial">
                     <label>({{ waste.vial.drug }}) Wasted Amount({{ waste.vial.unit }})</label>
                     <select :value="waste.vial.drug" @change="e => waste.vial = vials.find(it => it.drug === e.target.value)">
@@ -45,6 +45,10 @@
                 <nuxt-link tag="button" to="/done" type="button" name="button">Next</nuxt-link>
             </div>
         </div>
+
+        <span>{{searching ? "YAH" : "NAH"}}</span>
+
+        <Spinner v-if="searching" />
     </div>
 </template>
 
@@ -66,12 +70,14 @@
     import DrugSearch from "../components/DrugSearch";
     import PdfRenderer from "../components/PdfRenderer";
 
+    import Spinner from '../components/Spinner';
+
     PDFJS.GlobalWorkerOptions.workerSrc = '/pdf-worker.js';
 
     import { sortBy } from 'lodash'
 
     @Component({
-        components: { PdfRenderer, DrugSearch }
+        components: { PdfRenderer, DrugSearch, Spinner }
     })
     export default class extends Vue {
         @State(state => state.vials.vials) vials;
@@ -81,6 +87,8 @@
         pdfs = [];
 
         waste = null;
+
+        searching = false;
 
         updateWaste() {
             let found = this.pdfWaste.find(it => it.pdf === this.$refs.pdf.currentPDF && it.page === this.$refs.pdf.currentPage);

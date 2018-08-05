@@ -29,7 +29,7 @@
 
     import {Prop} from 'vue-property-decorator';
 
-    import {DotLoader} from 'vue-spinner/dist/vue-spinner.min.js';
+    import DotLoader from 'vue-spinner/src/DotLoader.vue';
 
     @Component({
         components: {DotLoader}
