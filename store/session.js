@@ -92,7 +92,7 @@ export const actions = {
             }
         });
 
-        console.log(used, allSizes);
+        console.log(data, used, allSizes);
 
         let combinations = Combinatorics.power(allSizes);
         let current;
@@ -109,6 +109,8 @@ export const actions = {
 
             if(total < best.total) best = {total, config: current}
         }
+
+        console.log(best);
 
         data.config = best;
         commit('putWaste', data);

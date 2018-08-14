@@ -10,7 +10,7 @@ module.exports = {
 
     loading: false,
 
-    dev: false,
+    dev: true,
 
     mode: 'spa',
 

@@ -17,7 +17,7 @@
                         @click="backup"
                 >Backup Work
                 </button>
-                
+
             </div>
         </div>
         <PdfRenderer :display="false" ref="renderer" :pdfs="pdfs" />
@@ -30,7 +30,7 @@
 
     import * as PDFJS from 'pdfjs-dist';
     import PdfRenderer from '../components/PdfRenderer';
-    import { logToLayoutMap, wasted_units } from '../util/pdf-layout';
+    import { logToLayoutMap, wasted_amount, wasted_units } from '../util/pdf-layout';
     import { BatchService } from '../util/batch';
 
     import FileSaver from 'file-saver';
@@ -58,11 +58,11 @@
         }
 
         complete() {
-            return this.pdfWaste.filter(it => it.amount && it.vial && it.waste);
+            return this.pdfWaste.filter(it => it.amount && it.vial && it.waste && it.waste.rate > 0);
         }
 
         async downloadIncomplete() {
-            const excluded = this.pdfWaste.map(it => ({ page: it.page, pdf: it.pdf }));
+            const excluded = this.complete().map(it => ({ page: it.page, pdf: it.pdf }));
 
             const pdf = await this.$refs.renderer.getFullPDF([], excluded);
 
@@ -86,11 +86,12 @@
         async downloadExcelFile() {
             let fields = {
                 'when': 'Date',
-                'patient_number': 'Patient Number / MRN',
+                'mrn': 'MRN',
                 'account_number': 'Account Number',
                 'charge_code': 'Charge Code',
                 'wasted_units': 'Wasted Units',
                 'rate': 'Rate',
+                'billed_units': 'Billed Units',
                 'billed_waste': 'Billed Waste',
                 'entered_waste': 'Entered Waste'
             };
@@ -103,8 +104,10 @@
                 return Object.keys(fields).map(field => {
                     if (field === 'wasted_units') {
                         return wasted_units(log);
-                    } else if(field === 'billed_waste') {
-                        return log.config.waste * log.vial.billable_units;
+                    } else if (field === 'billed_units') {
+                        return wasted_units(log);
+                    } else if (field === 'billed_waste') {
+                        return wasted_amount(log);
                     } else if (field === 'entered_waste') {
                         return log.amount;
                     } else {
@@ -137,7 +140,7 @@
         }
 
         backup() {
-            const blob = new Blob([window.localStorage.getItem('vuex')], {type: "application/json;charset=utf-8"});
+            const blob = new Blob([window.localStorage.getItem('vuex')], { type: "application/json;charset=utf-8" });
             FileSaver.saveAs(blob, "Backup.json");
         }
     }

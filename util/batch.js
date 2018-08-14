@@ -5,6 +5,8 @@ import FileSaver from 'file-saver';
 export class BatchService {
     constructor(logs) {
         this.logs = logs.filter(log => wasted_units(log) > 0);
+
+        console.log(this.logs);
     }
 
     westLine(log) {

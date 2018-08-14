@@ -45,9 +45,13 @@ const layoutSpecial = (prop, log) => {
 const formatProp = (prop, value) => `${prop} : ${value}`;
 
 export const wasted_units = (log) => {
-    const charged_waste = log.config.waste;
+    const charged_waste = log.config.total - (log.waste.units * log.vial.billable_units);
 
-    return Math.abs(charged_waste / log.vial.billable_units);
+    return charged_waste / log.vial.billable_units;
+};
+
+export const wasted_amount = (log) => {
+    return wasted_units(log) * log.vial.billable_units;
 };
 
 export const charge = (log) => {
