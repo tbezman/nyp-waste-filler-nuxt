@@ -103,10 +103,7 @@
             }));
 
             let sorted = (sortBy(mapped, it => it.distance));
-            console.log(sorted);
             let vial = sorted[0].vial;
-
-            if(sorted[0].distance > 3) return;
 
             this.waste = { vial, amount: 0, waste, only_patient: only };
         }

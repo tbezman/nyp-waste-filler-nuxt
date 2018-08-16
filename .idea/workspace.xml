@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9bf775a8-99a1-4636-a27d-e6de742f23d3" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nuxt.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/nuxt.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/done.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/done.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/store/session.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/batch.js" beforeDir="false" afterPath="$PROJECT_DIR$/util/batch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/pdf-layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/util/pdf-layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/pdf-filler.vue" beforeDir="false" afterPath="$PROJECT_DIR$/pages/pdf-filler.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,35 +15,36 @@
     <session id="467081489">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.0" value="3" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="js" value="9" />
-          <entry key="vue" value="8" />
+          <entry key="vue" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JavaScript" value="9" />
-          <entry key="Vue.js" value="8" />
+          <entry key="Vue.js" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="1496" />
-          <entry key="vue" value="1376" />
+          <entry key="js" value="1533" />
+          <entry key="vue" value="1556" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="1496" />
-          <entry key="Vue.js" value="1376" />
+          <entry key="JavaScript" value="1533" />
+          <entry key="Vue.js" value="1556" />
         </counts>
       </usages-collector>
     </session>
@@ -57,10 +52,13 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/util/pdf-layout.js">
+        <entry file="file://$PROJECT_DIR$/pages/pdf-filler.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+            <state relative-caret-position="1456">
+              <caret line="105" selection-start-line="105" selection-end-line="105" />
+              <folding>
+                <element signature="e#2521#2595#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,7 +113,6 @@
         <option value="$PROJECT_DIR$/Excel.js" />
         <option value="$PROJECT_DIR$/pages/waste-mapper.vue" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/pages/pdf-filler.vue" />
         <option value="$PROJECT_DIR$/components/Header.vue" />
         <option value="$PROJECT_DIR$/pages/pdf-upload.vue" />
         <option value="$PROJECT_DIR$/main.js" />
@@ -128,6 +125,7 @@
         <option value="$PROJECT_DIR$/pages/done.vue" />
         <option value="$PROJECT_DIR$/util/batch.js" />
         <option value="$PROJECT_DIR$/util/pdf-layout.js" />
+        <option value="$PROJECT_DIR$/pages/pdf-filler.vue" />
       </list>
     </option>
   </component>
@@ -148,7 +146,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="28" />
     <option name="y" value="30" />
-    <option name="width" value="2438" />
+    <option name="width" value="1889" />
     <option name="height" value="2102" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -159,6 +157,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -170,8 +170,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -266,17 +264,19 @@
       <workItem from="1534276631802" duration="23000" />
       <workItem from="1534276673380" duration="6670000" />
       <workItem from="1534290239233" duration="275000" />
+      <workItem from="1534340543594" duration="8000" />
+      <workItem from="1534453662274" duration="37000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109194000" />
+    <option name="totallyTimeSpent" value="109239000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="28" y="30" width="2438" height="2102" extended-state="0" />
+    <frame x="28" y="30" width="1889" height="2102" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="1925" y="60" width="1885" height="2070" id="Project" order="0" visible="true" weight="0.20090386" />
+      <window_info active="true" content_ui="combo" x="1925" y="60" width="1885" height="2070" id="Project" order="0" visible="true" weight="0.17665783" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -467,13 +467,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/pdf-filler.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -548,16 +541,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/util/pdf-layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+        <state>
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/pdf-filler.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1456">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+          <folding>
+            <element signature="e#2521#2595#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
