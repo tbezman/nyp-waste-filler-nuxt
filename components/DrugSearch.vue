@@ -60,6 +60,8 @@
     import Vue from 'vue';
 
     import moment from 'moment';
+    import {sortBy} from 'lodash';
+
     import MaskedInput from "vue-masked-input";
 
     import { Prop } from 'vue-property-decorator';
@@ -105,6 +107,10 @@
                             when.get('month') === date.get('month')
 
                 });
+
+                this.results = sortBy(this.results, it => moment(it.when).toDate().getTime());
+
+                console.log(this.results.length);
             } catch (e) {
                 console.error(e);
             } finally {

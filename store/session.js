@@ -1,4 +1,4 @@
-import {sum} from 'lodash';
+import { sum } from 'lodash';
 import Combinatorics from 'js-combinatorics';
 
 export const state = () => ({
@@ -17,13 +17,13 @@ export const mutations = {
     campus(state, campus) {
         state.campus = campus;
     },
-    files(state, {name, files}) {
+    files(state, { name, files }) {
         state.files[name] = files;
     },
     worksheets(state, worksheets) {
         state.worksheets.push(...worksheets);
     },
-    changeWorksheetMapping(state, {worksheet, column, value}) {
+    changeWorksheetMapping(state, { worksheet, column, value }) {
         state.worksheets = [...state.worksheets];
 
         worksheet.mappings[column] = value;
@@ -39,40 +39,40 @@ export const mutations = {
     clearLayout(state) {
         state.layout = {};
     },
-    addLayout(state, {key, data}) {
+    addLayout(state, { key, data }) {
         state.layout[key] = data;
     }
 };
 
 export const actions = {
-    chooseFiles({commit, state}, {name, files}) {
+    chooseFiles({ commit, state }, { name, files }) {
         let fresh = state.files[name].slice();
 
         fresh.push(...files);
 
-        commit('files', {name, files: fresh});
+        commit('files', { name, files: fresh });
     },
 
-    changeMapping({commit, state}, {worksheet, column, value}) {
-        commit('changeWorksheetMapping', {worksheet, column, value});
+    changeMapping({ commit, state }, { worksheet, column, value }) {
+        commit('changeWorksheetMapping', { worksheet, column, value });
 
         console.log(worksheet.mappings);
     },
 
-    removeFile({commit, state}, {name, file}) {
+    removeFile({ commit, state }, { name, file }) {
         let files = state.files[name].slice();
 
         files.splice(files.indexOf(file), 1);
 
-        commit('files', {name, files});
+        commit('files', { name, files });
     },
 
-    putWaste({commit}, data) {
-        if(!data.status) {
+    putWaste({ commit }, data) {
+        if (!data.status) {
             data.status = 'done';
         }
 
-        if(data.status === 'problematic') return commit('putWaste', data);
+        if (data.status === 'problematic') return commit('putWaste', data);
 
         // Continue on with waste processing
         let vial = data.vial;
@@ -96,18 +96,25 @@ export const actions = {
 
         let combinations = Combinatorics.power(allSizes);
         let current;
-        while(current = combinations.next()) {
+        while (current = combinations.next()) {
             let total = sum(current);
-            let waste = Math.min(parseFloat(data.amount), total - used, sizes[0]);
+            const amount = parseFloat(data.amount);
+            const minimumOf = [total - used, sizes[0]];
 
-            if(total < used) continue;
+            if (!data.only_patient) {
+                minimumOf.push(amount);
+            }
 
-            if(!best) {
-                best = {total, waste, config: current};
+            let waste = Math.min(...minimumOf);
+
+            if (total < used) continue;
+
+            if (!best) {
+                best = { total, waste, config: current };
                 continue;
             }
 
-            if(total < best.total) best = {total, config: current}
+            if (total < best.total) best = { total, config: current, waste }
         }
 
         console.log(best);

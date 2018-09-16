@@ -2,7 +2,7 @@
     <div class="row between">
         <p class="leggible">{{ fileName }}</p>
         <div class="actions">
-            <i class="fa fa-times pointer pointer" @click="$emit('remove')"></i>
+            <i class="fa fa-times pointer pointer" @click="$emit('remove')">Remove</i>
         </div>
     </div>
 </template>

@@ -50,7 +50,7 @@ const newWin = () => {
         }).on('error', pollServer)
     }
     pollServer()
-    
+
     win.webContents.openDevTools()
 }
 app.on('ready', newWin)
@@ -78,7 +78,6 @@ electron.ipcMain.on('headers', async (event, path) => {
 
 electron.ipcMain.on('import', async (event, worksheets) => {
     let files = _.groupBy(worksheets, 'path');
-    console.log(files);
 
     try {
         const logs = [];
@@ -86,9 +85,11 @@ electron.ipcMain.on('import', async (event, worksheets) => {
 
         for (const path in files) {
             let excel = await Excel.fromPath(path);
-            let worksheets = files[path];
+            let worksheets = _.uniqBy(files[path], it => it.worksheet);
 
             worksheets.forEach(worksheet => {
+                console.log(`Processing worksheet ${worksheet.worksheet}`);
+
                 let found = excel.worksheets.find(it => it.worksheet.id === worksheet.worksheet);
 
                 if (!found) return;
@@ -105,7 +106,7 @@ electron.ipcMain.on('import', async (event, worksheets) => {
 
                     let justDate = moment(wasteRecord.date);
                     let date = moment(justDate.format('M/D/YYYY') + ' ' + wasteRecord.time, 'M/D/YYYY h:mma');
-                    date.add(1, 'day')
+                    date.add(1, 'day');
 
                     wasteRecord.when = date.format();
 
