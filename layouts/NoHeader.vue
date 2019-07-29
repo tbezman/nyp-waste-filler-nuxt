@@ -1,22 +1,10 @@
 <template>
     <div>
-        <Header />
         <div id="content">
             <nuxt />
         </div>
     </div>
 </template>
-
-<style scoped>
-    #content {
-        min-height: 100vh;
-        width: 100vw;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-</style>
 
 <script>
     import Component from 'nuxt-class-component';
