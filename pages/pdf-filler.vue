@@ -80,7 +80,7 @@
         components: { PdfRenderer, DrugSearch, Spinner }
     })
     export default class extends Vue {
-        @State(state => state.vials.vials) vials;
+        @State(state => state.vials.vials) _vials;
         @State(state => state.session.pdfWaste) pdfWaste;
         @Action('session/putWaste') putWaste;
 
@@ -130,6 +130,14 @@
             this.putWaste({ ...this.waste, pdf: this.$refs.pdf.currentPDF, page: this.$refs.pdf.currentPage });
 
             this.next()
+        }
+
+        get vials() {
+            try {
+                return sortBy(this._vials, (vial) => vial.drug.toLowerCase());
+            } catch (e) {
+                return this._vials;
+            }
         }
 
         async mounted() {

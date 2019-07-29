@@ -225,7 +225,7 @@ export const state = () => ({
         },
         {
             "drug": "Trastuzumab",
-            "vial_size": 440,
+            "vial_size": 150,
             "billable_units": 10,
             "unit": "mg"
         },
@@ -253,5 +253,11 @@ export const state = () => ({
             "billable_units": 1,
             "unit": "mg"
         },
+        {
+            "drug": "Rituximab",
+            "vial_size": "100,500",
+            "billable_units": 10,
+            "unit": "mg"
+        }
     ]
 });

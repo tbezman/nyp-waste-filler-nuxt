@@ -25,6 +25,7 @@
                 <th>Date/Time</th>
                     <th>MRN</th>
                 <th>Units</th>
+                <th>Description</th>
                 <th>Actions</th>
                 </thead>
                 <tbody>
@@ -35,11 +36,12 @@
                     <td>{{ selected.waste.units }}</td>
                     <td>NA</td>
                 </tr>
-                <tr class="selectable" ng-class="{strange: filler.isResultStrange(result)}" v-for="result in results">
-                    <td>{{ result.charge_code_descriptor }}</td>
+                <tr class="selectable" v-for="result in results" :key="result.id">
+                    <td>{{ result.timestamp}}</td>
                     <td>{{ result.when }}</td>
                     <td>{{ result.mrn }}</td>
                     <td>{{ result.units }}</td>
+                    <td>{{ result.charge_code_descriptor }}</td>
                     <td class="row flex center-xs around-xs">
                         <button @click="select(result, false)" type="button" name="button">
                             Select
@@ -94,11 +96,11 @@
                 });
 
                 this.results = result.docs.map(it => {
-                    return { ...it, when: moment(it.when).format('MM/DD/YYYY H:mm A') }
+                    return { ...it, when: moment(it.when).format('MM/DD/YYYY H:mm A'), timestamp: it.when }
                 }).filter(it => {
                     if(!this.date) return true;
                     let date = moment(this.date);
-                    let when = moment(it.when);
+                    let when = moment(it.timestamp);
 
                     if(!date) return true;
 
@@ -108,9 +110,7 @@
 
                 });
 
-                this.results = sortBy(this.results, it => moment(it.when).toDate().getTime());
-
-                console.log(this.results.length);
+                this.results = sortBy(this.results, it => it.timestamp);
             } catch (e) {
                 console.error(e);
             } finally {
