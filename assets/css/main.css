@@ -49,7 +49,7 @@ spinner > .background {
 }
 
 .selectable:hover {
-  background-color: #EEE;
+  background-color: #eee;
 }
 
 .invisible {
@@ -80,11 +80,11 @@ a {
 }
 
 .animate.ng-hide-add {
-  animation: .5s fadeOutUp ease;
+  animation: 0.5s fadeOutUp ease;
 }
 
 .animate.ng-hide-remove {
-  animation: .5s fadeInUp ease;
+  animation: 0.5s fadeInUp ease;
 }
 
 .container {
@@ -165,12 +165,12 @@ work-flow .content {
 
 .hr-line {
   height: 2px;
-  background-color: #EEE;
+  background-color: #eee;
   width: 100%;
 }
 
 .progress-outer {
-  background-color: #EEE;
+  background-color: #eee;
 }
 
 .progress-inner {
